@@ -1,0 +1,14 @@
+{
+  "name": "user-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Nathan Heller <naheller@gmail.com>",
+  "license": "MIT",
+  "browserslist": [
+    "last 1 Chrome version"
+  ],
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
