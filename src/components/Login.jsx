@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 import { getEmailErrors, getPasswordErrors } from '../utils/formValidation'
-
-const USER_ENDPOINT = 'http://localhost:3000/user'
+import { loginUser } from '../endpoints'
 
 export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState([])
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const resetFields = () => {
+    setEmail('')
+    setPassword('')
+    setErrors([])
+  }
 
   const handleLogin = () => {
     const validationErrors = [...getEmailErrors(email), ...getPasswordErrors(password)]
@@ -14,34 +20,32 @@ export const Login = () => {
     if (validationErrors.length) {
       setErrors(validationErrors)
     } else {
-      postUser({ email, password })
+      setErrors([])
+
+      loginUser({ email, password })
         .then((data) => {
-          console.log('data', data)
-          if (data.error) {
-            setErrors([`Server error: ${data.error}`])
+          if (!data.ok) throw Error(data.statusText)
+          return data.json()
+        })
+        .then((data) => {
+          if (!data.Items.length) {
+            setErrors(['No user found'])
+          } else if (data.Items[0].password !== password) {
+            setErrors(['Incorrect password'])
+          } else {
+            setIsLoggedIn(true)
+            resetFields()
           }
         })
         .catch((err) => {
-          console.log('err', err)
+          setErrors([err.toString()])
         })
     }
   }
 
-  const postUser = async (data) => {
-    const response = await fetch(USER_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-
-    return response.json()
-  }
-
   return (
     <div>
-      <h1>Login</h1>
+      <h1>{isLoggedIn ? "You're logged in!" : 'Login'}</h1>
       <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button onClick={handleLogin}>Login</button>
