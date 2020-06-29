@@ -1,6 +1,6 @@
-export const getEmailErrors = (email) => {
+export const getNameErrors = (name) => {
   const errors = []
-  if (!email) errors.push('Email required')
+  if (!name) errors.push('Name required')
   return errors
 }
 
