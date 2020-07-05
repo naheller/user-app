@@ -1,5 +1,5 @@
 const localBaseUrl = 'http://localhost:3000'
-const ec2BaseUrl = 'http://ec2-54-145-231-105.compute-1.amazonaws.com:3000'
+const ec2BaseUrl = 'http://ec2-54-234-77-94.compute-1.amazonaws.com'
 
 const LOGIN_ENDPOINT = `${ec2BaseUrl}/login`
 const CREATE_ENDPOINT = `${ec2BaseUrl}/user`
