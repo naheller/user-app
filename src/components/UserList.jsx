@@ -22,7 +22,7 @@ export default function UserList() {
   }
 
   return (
-    <div className="list">
+    <div>
       <h1>Users</h1>
       <ul>
         {userList.map((user, i) => (

@@ -6,13 +6,18 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html",
+    "build": "parcel build index.html",
     "deploy": "aws s3 sync dist/ s3://user-react-app"
   },
   "browserslist": [
     "last 1 Chrome version"
   ],
   "dependencies": {
+    "context": "^0.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.10"
   }
 }
